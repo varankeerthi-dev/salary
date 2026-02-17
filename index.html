@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Salary App</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    background:#f3f4f6;
+    font-family:Inter, sans-serif;
+  }
+
+  /* FULL SCREEN APP */
+  #appFrame{
+    width:100%;
+    height:100vh;
+    border:none;
+    display:block;
+  }
+
+  /* Loading screen */
+  #loader{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    font-weight:600;
+    color:#6366f1;
+    z-index:999;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="loader">Loading App...</div>
+
+<iframe
+  id="appFrame"
+  src="https://script.google.com/macros/s/AKfycbynJQQjlrmHf7AVgJHfYVPbFbTPHRb2dRmOTWR1T6J-aWeAhfy0RBiynFJYhygYCmXg/exec">
+</iframe>
+
+<script>
+  const frame = document.getElementById("appFrame");
+  
+  frame.onload = () => {
+    document.getElementById("loader").style.display = "none";
+  };
+  
+  /* ===== ENABLE SERVICE WORKER ===== */
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .then(() => console.log("Service Worker enabled"))
+        .catch(err => console.log("Service Worker error:", err));
+    });
+  }
+  </script>
+
+</body>
+</html>
